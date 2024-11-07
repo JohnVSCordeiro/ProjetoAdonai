@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: #fff;
+            overflow-x: hidden; /* Evita scroll lateral */
+        }
+    
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+    
+        .cadastro, .visualizacao {
+            margin: 10px;
+            padding: 20px;
+            border: 1px solid #ff4d4d;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            background-color: #333;
+        }
+    
+        button {
+            background-color: #ff4d4d;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    
+        button:disabled {
+            background-color: #ff9999;
+        }
+    
+        input[type="text"], input[type="date"], input[type="password"] {
+            width: 80%; /* Diminuir o tamanho dos inputs */
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ff4d4d;
+            border-radius: 5px;
+            background-color: #444;
+            color: #fff;
+        }
+    
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+    
+        th, td {
+            padding: 10px;
+            border: 1px solid #ff4d4d;
+            text-align: left;
+        }
+    
+        th {
+            background-color: #ff4d4d;
+        }
+    
+        /* Estilizando o modal */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgba(0, 0, 0, 0.8); 
+        }
+    
+        .modal-content {
+            background-color: #333;
+            margin: 15% auto; 
+            padding: 20px;
+            border: 1px solid #ff4d4d;
+            width: 50%; /* Diminuir o tamanho do modal */
+            color: #fff;
+        }
+    
+        .close {
+            color: #ff4d4d;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+    
+        .close:hover,
+        .close:focus {
+            color: #fff;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Botão para abrir o modal -->
+    <div class="container">
+        <button id="openModalBtn">Login</button>
+        <div class="cadastro">
+            <input type="text" id="nome" placeholder="Nome">
+            <input type="date" id="data">
+            <input type="text" id="servico" placeholder="Serviço">
+            <button id="botaoCadastrar" onclick="cadastrar()" disabled>Cadastrar</button>
+        </div>
+        <div class="visualizacao" id="areaDeVisualizacao">
+            <h1>Lista de hoje</h1>
+            <div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Data</th>
+                            <th>Serviço</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabelaCorpo">
+                        <!-- Conteúdo será populado pela função exibirHoje -->
+                    </tbody>
+                </table>
+            </div>
+
+            <h1>Lista dos próximos 7 dias</h1>
+            <div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Data</th>
+                            <th>Serviço</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabelaCorpo2">
+                        <!-- Conteúdo será populado pela função exibirSemana -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- O Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Login</h2>
+            <form id="loginForm">
+                <label for="username">Usuário:</label>
+                <input type="text" id="username" name="username" required>
+                <br>
+                <label for="password">Senha:</label>
+                <input type="password" id="password" name="password" required>
+                <button type="submit">Entrar</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        function cadastrar() {
+            var nome = document.getElementById('nome').value;
+            var data = document.getElementById('data').value;
+            var servico = document.getElementById('servico').value;
+
+            axios.post('http://localhost:3000/inserir', {
+                nome: nome,
+                data: data,
+                servico: servico
+            })
+            .then(function() {
+                alert('Cadastrado com sucesso');
+                exibirHoje(); // Atualiza a lista após cadastrar
+            })
+            .catch(function(error) {
+                console.error('Erro ao cadastrar:', error);
+            });
+        }
+
+        function exibirHoje() {
+            axios.get('http://localhost:3000/listarHoje')
+                .then(function(response) {
+                    const dados = response.data;
+                    const tabelaCorpo = document.getElementById('tabelaCorpo');
+                    tabelaCorpo.innerHTML = ''; // Limpa o conteúdo anterior
+
+                    dados.forEach(dado => {
+                        const linha = `<tr>
+                            <td>${dado.nome}</td>
+                            <td>${formatarData(dado.data)}</td>
+                            <td>${dado.servico}</td>
+                        </tr>`;
+                        tabelaCorpo.innerHTML += linha;
+                    });
+                })
+                .catch(function(error) {
+                    console.error('Erro ao obter dados:', error);
+                });
+        }
+
+        function exibirSemana() {
+            axios.get('http://localhost:3000/listarSemana')
+                .then(function(response) {
+                    const dados = response.data;
+                    const tabelaCorpo = document.getElementById('tabelaCorpo2');
+                    tabelaCorpo.innerHTML = ''; // Limpa o conteúdo anterior
+
+                    dados.forEach(dado => {
+                        const linha = `<tr>
+                            <td>${dado.nome}</td>
+                            <td>${formatarData(dado.data)}</td>
+                            <td>${dado.servico}</td>
+                        </tr>`;
+                        tabelaCorpo.innerHTML += linha;
+                    });
+                })
+                .catch(function(error) {
+                    console.error('Erro ao obter dados:', error);
+                });
+        }
+
+        function formatarData(dataISO) {
+            const data = new Date(dataISO);
+            const dia = String(data.getDate()).padStart(2, '0');
+            const mes = String(data.getMonth() + 1).padStart(2, '0'); // Janeiro é 0!
+            const ano = data.getFullYear();
+            return `${dia}/${mes}/${ano}`;
+        }
+
+        // Obtendo o modal
+        var modal = document.getElementById("loginModal");
+
+        // Obtendo o botão que abre o modal
+        var btn = document.getElementById("openModalBtn");
+
+        // Obtendo o elemento <span> que fecha o modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // Quando o usuário clicar no botão, abre o modal
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        // Quando o usuário clicar no <span> (x), fecha o modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // Quando o usuário clicar em qualquer lugar fora do modal, fecha o modal
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        // Função de login
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Evita o envio do formulário
+
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+
+            // Simulação de validação de login
+            if (username === 'adenir' && password === 'adenir') {
+                modal.style.display = "none"; // Fecha o modal
+                exibirHoje();
+                exibirSemana();
+                var button = document.getElementById('botaoCadastrar');
+                button.disabled = false;
+                
+            } else {
+                alert('Credenciais inválidas');
+            }
+        });
+    </script>
+</body>
+
+</html>

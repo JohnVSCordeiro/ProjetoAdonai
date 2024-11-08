@@ -9,9 +9,9 @@ client.connect()
     .catch(err => console.error('Connection error', err.stack));
  
 
-const insertData = async (nome, data, servico) => {
-    const query = 'INSERT INTO registros (nome, data, servico) VALUES ($1, $2, $3)';
-    const values = [nome, data, servico];
+const insertData = async (nome, data, servico,telefone) => {
+    const query = 'INSERT INTO registros (nome, data, servico, telefone) VALUES ($1, $2, $3,$4)';
+    const values = [nome, data, servico, telefone];
 
     try {
         const res = await client.query(query, values);
@@ -42,3 +42,8 @@ const selectSemana = async () => {
 }
 
 module.exports = { insertData, selectData,selectSemana };
+
+
+
+
+

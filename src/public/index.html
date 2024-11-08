@@ -114,6 +114,7 @@
         <div class="cadastro">
             <input type="text" id="nome" placeholder="Nome">
             <input type="date" id="data">
+            <input type="text" id="telefone" placeholder="telefone">
             <input type="text" id="servico" placeholder="Serviço">
             <button id="botaoCadastrar" onclick="cadastrar()" disabled>Cadastrar</button>
         </div>
@@ -126,6 +127,7 @@
                             <th>Nome</th>
                             <th>Data</th>
                             <th>Serviço</th>
+                            <th>Telefone</th>
                         </tr>
                     </thead>
                     <tbody id="tabelaCorpo">
@@ -142,6 +144,7 @@
                             <th>Nome</th>
                             <th>Data</th>
                             <th>Serviço</th>
+                            <th>Telefone</th>
                         </tr>
                     </thead>
                     <tbody id="tabelaCorpo2">
@@ -174,11 +177,13 @@
             var nome = document.getElementById('nome').value;
             var data = document.getElementById('data').value;
             var servico = document.getElementById('servico').value;
+            var telefone = document.getElementById('telefone').value
 
-            axios.post('http://localhost:3000/inserir', {
+            axios.post('/inserir', {
                 nome: nome,
                 data: data,
-                servico: servico
+                servico: servico,
+                telefone: telefone
             })
             .then(function() {
                 alert('Cadastrado com sucesso');
@@ -190,7 +195,7 @@
         }
 
         function exibirHoje() {
-            axios.get('http://localhost:3000/listarHoje')
+            axios.get('/listarHoje')
                 .then(function(response) {
                     const dados = response.data;
                     const tabelaCorpo = document.getElementById('tabelaCorpo');
@@ -201,6 +206,7 @@
                             <td>${dado.nome}</td>
                             <td>${formatarData(dado.data)}</td>
                             <td>${dado.servico}</td>
+                            <td>${dado.telefone}</td>
                         </tr>`;
                         tabelaCorpo.innerHTML += linha;
                     });
@@ -211,7 +217,7 @@
         }
 
         function exibirSemana() {
-            axios.get('http://localhost:3000/listarSemana')
+            axios.get('/listarSemana')
                 .then(function(response) {
                     const dados = response.data;
                     const tabelaCorpo = document.getElementById('tabelaCorpo2');

@@ -3,9 +3,9 @@ const router = express.Router();
 const registroService = require('../service/registroService');
 
 router.post('/inserir', (req, res) => {
-    var { nome, data, servico } = req.body;
+    var { nome, data, servico, telefone } = req.body;
     try {
-        registroService.gravarRegistro(nome, data, servico);
+        registroService.gravarRegistro(nome, data, servico, telefone);
         res.sendStatus(200);
     } catch (err) {
         res.sendStatus(500);

@@ -5,6 +5,8 @@ const registroController = require('./controller/registroController');
 
 app.use(express.json());
 app.use(registroController);
+app.use(express.static('public'));
+
 
 
 app.get('/home', (req, res) => {

@@ -1,8 +1,8 @@
 const db = require('../db/conectaBanco');
 
-function gravarRegistro(nome,data,servico){
+function gravarRegistro(nome,data,servico, telefone){
     try{
-        db.insertData(nome,data,servico);
+        db.insertData(nome,data,servico, telefone);
     } catch (err){      
         console.error('Error inserting data:', err.stack);
     }

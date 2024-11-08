@@ -5,156 +5,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            background-color: #1a1a1a;
-            color: #fff;
-            overflow-x: hidden; /* Evita scroll lateral */
-        }
-    
-        .cadastro, .visualizacao {
-            margin: 10px;
-            padding: 20px;
-            border: 1px solid #ff4d4d;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
-            background-color: #333;
-            height: 300px; /* Altura fixa */
-            overflow-y: auto; /* Adiciona scroll vertical */
-        }
-    
-        button {
-            background-color: #ff4d4d;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-    
-        button:disabled {
-            background-color: #ff9999;
-        }
-    
-        input[type="text"], input[type="date"], input[type="password"] {
-            width: 80%; /* Diminuir o tamanho dos inputs */
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ff4d4d;
-            border-radius: 5px;
-            background-color: #444;
-            color: #fff;
-        }
-    
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-    
-        th, td {
-            padding: 10px;
-            border: 1px solid #ff4d4d;
-            text-align: left;
-        }
-    
-        th {
-            background-color: #ff4d4d;
-        }
-    
-        /* Estilizando o modal */
-        .modal {
-            display: none; 
-            position: fixed; 
-            z-index: 1; 
-            left: 0;
-            top: 0;
-            width: 100%; 
-            height: 100%; 
-            overflow: auto; 
-            background-color: rgba(0, 0, 0, 0.8); 
-        }
-    
-        .modal-content {
-            background-color: #333;
-            margin: 15% auto; 
-            padding: 20px;
-            border: 1px solid #ff4d4d;
-            width: 50%; /* Diminuir o tamanho do modal */
-            color: #fff;
-        }
-    
-        .close {
-            color: #ff4d4d;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-    
-        .close:hover,
-        .close:focus {
-            color: #fff;
-            text-decoration: none;
-            cursor: pointer;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
     <!-- Botão para abrir o modal -->
-    <div class="container d-flex justify-content-center align-items-center vh-100">
-        <button id="openModalBtn" class="btn btn-danger">Login</button>
-    </div>
     <div class="container">
-        <div class="row">
-            <div class="col-md-6 col-12">
-                <div class="cadastro">
-                    <input type="text" id="nome" class="form-control" placeholder="Nome">
-                    <input type="date" id="data" class="form-control">
-                    <input type="text" id="telefone" class="form-control" placeholder="telefone">
-                    <input type="text" id="servico" class="form-control" placeholder="Serviço">
-                    <button id="botaoCadastrar" class="btn btn-danger mt-2" onclick="cadastrar()" disabled>Cadastrar</button>
-                </div>
+        <button id="openModalBtn">Login</button>
+        <div class="cadastro">
+            <input type="text" id="nome" placeholder="Nome">
+            <input type="date" id="data">
+            <input type="text" id="telefone" placeholder="telefone">
+            <input type="text" id="servico" placeholder="Serviço">
+            <button id="botaoCadastrar" onclick="cadastrar()" disabled>Cadastrar</button>
+        </div>
+        <div class="visualizacao" id="areaDeVisualizacao">
+            <h1>Lista de hoje</h1>
+            <div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Data</th>
+                            <th>Serviço</th>
+                            <th>Telefone</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabelaCorpo">
+                        <!-- Conteúdo será populado pela função exibirHoje -->
+                    </tbody>
+                </table>
             </div>
-            <div class="col-md-6 col-12">
-                <div class="visualizacao" id="areaDeVisualizacao">
-                    <h1>Lista de hoje</h1>
-                    <div>
-                        <table class="table table-dark table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Nome</th>
-                                    <th>Data</th>
-                                    <th>Serviço</th>
-                                    <th>Telefone</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tabelaCorpo">
-                                <!-- Conteúdo será populado pela função exibirHoje -->
-                            </tbody>
-                        </table>
-                    </div>
 
-                    <h1>Lista dos próximos 7 dias</h1>
-                    <div>
-                        <table class="table table-dark table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Nome</th>
-                                    <th>Data</th>
-                                    <th>Serviço</th>
-                                    <th>Telefone</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tabelaCorpo2">
-                                <!-- Conteúdo será populado pela função exibirSemana -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+            <h1>Lista dos próximos 7 dias</h1>
+            <div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Data</th>
+                            <th>Serviço</th>
+                            <th>Telefone</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabelaCorpo2">
+                        <!-- Conteúdo será populado pela função exibirSemana -->
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -166,11 +63,11 @@
             <h2>Login</h2>
             <form id="loginForm">
                 <label for="username">Usuário:</label>
-                <input type="text" id="username" name="username" class="form-control" required>
+                <input type="text" id="username" name="username" required>
                 <br>
                 <label for="password">Senha:</label>
-                <input type="password" id="password" name="password" class="form-control" required>
-                <button type="submit" class="btn btn-danger mt-2">Entrar</button>
+                <input type="password" id="password" name="password" required>
+                <button type="submit">Entrar</button>
             </form>
         </div>
     </div>

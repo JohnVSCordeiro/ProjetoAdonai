@@ -1,0 +1,133 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #1a1a1a;
+    color: #fff;
+    overflow-x: hidden; /* Evita scroll lateral */
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-wrap: wrap; /* Permite que os itens se ajustem em dispositivos menores */
+}
+
+.cadastro, .visualizacao {
+    margin: 10px;
+    padding: 20px;
+    border: 1px solid #ff4d4d;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+    background-color: #333;
+    height: 300px; /* Altura fixa */
+    overflow-y: auto; /* Adiciona scroll vertical */
+    width: 45%; /* Ajuste para desktops */
+}
+
+button {
+    background-color: #ff4d4d;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:disabled {
+    background-color: #ff9999;
+}
+
+input[type="text"], input[type="date"], input[type="password"] {
+    width: 80%; /* Diminuir o tamanho dos inputs */
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ff4d4d;
+    border-radius: 5px;
+    background-color: #444;
+    color: #fff;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ff4d4d;
+    text-align: left;
+}
+
+th {
+    background-color: #ff4d4d;
+}
+
+/* Estilizando o modal */
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0, 0, 0, 0.8); 
+}
+
+.modal-content {
+    background-color: #333;
+    margin: 15% auto; 
+    padding: 20px;
+    border: 1px solid #ff4d4d;
+    width: 50%; /* Diminuir o tamanho do modal */
+    color: #fff;
+}
+
+.close {
+    color: #ff4d4d;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Responsividade para telas menores (tablets e celulares) */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column; /* Empilha as seções verticalmente */
+        align-items: center;
+    }
+
+    .cadastro, .visualizacao {
+        width: 80%; /* Ajuste a largura para dispositivos móveis */
+        height: auto; /* Permite altura dinâmica */
+    }
+
+    .modal-content {
+        width: 90%; /* Deixa o modal mais acessível em dispositivos móveis */
+    }
+}
+
+@media (max-width: 480px) {
+    .cadastro, .visualizacao {
+        width: 90%; /* Reduz ainda mais a largura em telas muito pequenas */
+    }
+
+    input[type="text"], input[type="date"], input[type="password"] {
+        width: 100%; /* Ajusta a largura dos inputs para ocupar a tela toda */
+    }
+
+    button {
+        width: 100%; /* Ajusta a largura dos botões para dispositivos móveis */
+    }
+}

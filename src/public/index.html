@@ -294,10 +294,10 @@
 
         function formatarData(dataISO) {
             const data = new Date(dataISO);
-            const dia = String(data.getDate()).padStart(2, '0');
+            const dia = String(data.getDate() + 1).padStart(2, '0');
             const mes = String(data.getMonth() + 1).padStart(2, '0'); // Janeiro é 0!
             const ano = data.getFullYear();
-            return `${dia + 1}/${mes}/${ano}`;
+            return `${dia}/${mes}/${ano}`;
         }
 
         // Obtendo o modal
@@ -348,11 +348,11 @@
 
         function adicionar30Dias(dataISO) {
     const data = new Date(dataISO);
-    data.setDate(data.getDate() + 30);
+    data.setDate(data.getDate() + 31);
     const dia = String(data.getDate()).padStart(2, '0');
     const mes = String(data.getMonth() + 1).padStart(2, '0');
     const ano = data.getFullYear();
-    return `${dia + 1}/${mes}/${ano}`;
+    return `${dia}/${mes}/${ano}`;
 }
 
         

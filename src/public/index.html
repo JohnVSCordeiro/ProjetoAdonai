@@ -23,13 +23,15 @@
         }
     
         .cadastro, .visualizacao {
-            margin: 10px;
-            padding: 20px;
-            border: 1px solid #ff4d4d;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
-            background-color: #333;
-        }
+        margin: 10px;
+        padding: 20px;
+        border: 1px solid #ff4d4d;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        background-color: #333;
+        height: 300px; /* Altura fixa */
+        overflow-y: auto; /* Adiciona scroll vertical */
+    }
     
         button {
             background-color: #ff4d4d;
@@ -228,6 +230,7 @@
                             <td>${dado.nome}</td>
                             <td>${formatarData(dado.data)}</td>
                             <td>${dado.servico}</td>
+                            <td>${dado.telefone}</td>
                         </tr>`;
                         tabelaCorpo.innerHTML += linha;
                     });

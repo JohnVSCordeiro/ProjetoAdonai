@@ -21,11 +21,23 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            flex-wrap: wrap;
-            /* Permite que os itens se ajustem em dispositivos menores */
         }
 
-        .cadastro,
+        .cadastro {
+            margin: 10px;
+            padding: 20px;
+            border: 1px solid #ff4d4d;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            background-color: #333;
+            height: 300px;
+            /* Altura fixa */
+            overflow-y: auto;
+            /* Adiciona scroll vertical */
+            width: 30%;
+            /* Ajusta a largura para ser menor */
+        }
+
         .visualizacao {
             margin: 10px;
             padding: 20px;
@@ -37,8 +49,8 @@
             /* Altura fixa */
             overflow-y: auto;
             /* Adiciona scroll vertical */
-            width: 45%;
-            /* Ajuste para desktops */
+            width: 65%;
+            /* Ajusta a largura para ser maior */
         }
 
         button {
@@ -77,14 +89,11 @@
             padding: 10px;
             border: 1px solid #ff4d4d;
             text-align: left;
-            white-space: nowrap;
-            /* Evita quebra de linha no conteúdo das células */
         }
 
         th {
             background-color: #ff4d4d;
         }
-
 
         /* Estilizando o modal */
         .modal {
@@ -123,56 +132,30 @@
             cursor: pointer;
         }
 
-        /* Responsividade para telas menores (tablets e celulares) */
         @media (max-width: 768px) {
             .container {
                 flex-direction: column;
-                /* Empilha as seções verticalmente */
-                align-items: center;
-            }
-
-            .cadastro,
-            .visualizacao {
-                width: 80%;
-                /* Ajuste a largura para dispositivos móveis */
+                /* Empilha as divs verticalmente */
                 height: auto;
-                /* Permite altura dinâmica */
+                /* Ajusta a altura para caber o conteúdo */
             }
-
-            .modal-content {
-                width: 90%;
-                /* Deixa o modal mais acessível em dispositivos móveis */
-            }
-        }
-
-        @media (max-width: 480px) {
 
             .cadastro,
             .visualizacao {
                 width: 90%;
-                /* Reduz ainda mais a largura em telas muito pequenas */
-            }
-
-            input[type="text"],
-            input[type="date"],
-            input[type="password"] {
-                width: 100%;
-                /* Ajusta a largura dos inputs para ocupar a tela toda */
-            }
-
-            button {
-                width: 100%;
-                /* Ajusta a largura dos botões para dispositivos móveis */
+                /* Ajusta a largura para ocupar a maior parte da tela */
+                height: auto;
+                /* Ajusta a altura para caber o conteúdo */
             }
         }
     </style>
-
 </head>
 
 <body>
     <!-- Botão para abrir o modal -->
+    <button id="openModalBtn">Login</button>
     <div class="container">
-        <button id="openModalBtn">Login</button>
+       
         <div class="cadastro">
             <input type="text" id="nome" placeholder="Nome">
             <input type="date" id="data">
@@ -187,7 +170,8 @@
                     <thead>
                         <tr>
                             <th>Nome</th>
-                            <th>Data</th>
+                            <th>Data Realização</th>
+                            <th>Data Retorno</th>
                             <th>Serviço</th>
                             <th>Telefone</th>
                         </tr>
@@ -204,7 +188,8 @@
                     <thead>
                         <tr>
                             <th>Nome</th>
-                            <th>Data</th>
+                            <th>Data Realização</th>
+                            <th>Data Retorno</th>
                             <th>Serviço</th>
                             <th>Telefone</th>
                         </tr>
@@ -263,10 +248,14 @@
                     const tabelaCorpo = document.getElementById('tabelaCorpo');
                     tabelaCorpo.innerHTML = ''; // Limpa o conteúdo anterior
 
+                    
+
                     dados.forEach(dado => {
+                        var dataSoma = adicionar30Dias(dado.data);
                         const linha = `<tr>
                             <td>${dado.nome}</td>
                             <td>${formatarData(dado.data)}</td>
+                            <td>${dataSoma}</td>
                             <td>${dado.servico}</td>
                             <td>${dado.telefone}</td>
                         </tr>`;
@@ -286,11 +275,14 @@
                     tabelaCorpo.innerHTML = ''; // Limpa o conteúdo anterior
 
                     dados.forEach(dado => {
+                        var dataSoma = adicionar30Dias(dado.data);
                         const linha = `<tr>
                             <td>${dado.nome}</td>
                             <td>${formatarData(dado.data)}</td>
+                            <td>${dataSoma}</td>
                             <td>${dado.servico}</td>
                             <td>${dado.telefone}</td>
+                            
                         </tr>`;
                         tabelaCorpo.innerHTML += linha;
                     });
@@ -353,6 +345,17 @@
                 alert('Credenciais inválidas');
             }
         });
+
+        function adicionar30Dias(dataISO) {
+    const data = new Date(dataISO);
+    data.setDate(data.getDate() + 30);
+    const dia = String(data.getDate()).padStart(2, '0');
+    const mes = String(data.getMonth() + 1).padStart(2, '0');
+    const ano = data.getFullYear();
+    return `${dia}/${mes}/${ano}`;
+}
+
+        
     </script>
 </body>
 

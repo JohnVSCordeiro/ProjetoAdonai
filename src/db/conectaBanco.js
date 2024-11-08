@@ -32,7 +32,7 @@ const selectData = async () => {
 }
 
 const selectSemana = async () => {
-    const query = "SELECT * FROM registros WHERE data BETWEEN CURRENT_DATE - INTERVAL '36 days' AND CURRENT_DATE - INTERVAL '30 days' ORDER BY data ASC LIMIT 100;";
+    const query = "SELECT * FROM registros WHERE data BETWEEN CURRENT_DATE - INTERVAL '30 days' AND CURRENT_DATE - INTERVAL '23 days' ORDER BY data ASC LIMIT 100;";
     try {
         const res = await client.query(query); 
         return res.rows;

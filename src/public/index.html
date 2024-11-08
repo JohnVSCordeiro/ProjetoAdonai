@@ -7,140 +7,166 @@
     <title>Document</title>
     <style>
         body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: #1a1a1a;
-    color: #fff;
-    overflow-x: hidden; /* Evita scroll lateral */
-}
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: #fff;
+            overflow-x: hidden;
+            /* Evita scroll lateral */
+        }
 
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    flex-wrap: wrap; /* Permite que os itens se ajustem em dispositivos menores */
-}
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-wrap: wrap;
+            /* Permite que os itens se ajustem em dispositivos menores */
+        }
 
-.cadastro, .visualizacao {
-    margin: 10px;
-    padding: 20px;
-    border: 1px solid #ff4d4d;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
-    background-color: #333;
-    height: 300px; /* Altura fixa */
-    overflow-y: auto; /* Adiciona scroll vertical */
-    width: 45%; /* Ajuste para desktops */
-}
+        .cadastro,
+        .visualizacao {
+            margin: 10px;
+            padding: 20px;
+            border: 1px solid #ff4d4d;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            background-color: #333;
+            height: 300px;
+            /* Altura fixa */
+            overflow-y: auto;
+            /* Adiciona scroll vertical */
+            width: 45%;
+            /* Ajuste para desktops */
+        }
 
-button {
-    background-color: #ff4d4d;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 5px;
-}
+        button {
+            background-color: #ff4d4d;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
 
-button:disabled {
-    background-color: #ff9999;
-}
+        button:disabled {
+            background-color: #ff9999;
+        }
 
-input[type="text"], input[type="date"], input[type="password"] {
-    width: 80%; /* Diminuir o tamanho dos inputs */
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ff4d4d;
-    border-radius: 5px;
-    background-color: #444;
-    color: #fff;
-}
+        input[type="text"],
+        input[type="date"],
+        input[type="password"] {
+            width: 80%;
+            /* Diminuir o tamanho dos inputs */
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ff4d4d;
+            border-radius: 5px;
+            background-color: #444;
+            color: #fff;
+        }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
 
-th, td {
-    padding: 10px;
-    border: 1px solid #ff4d4d;
-    text-align: left;
-}
+        th,
+        td {
+            padding: 10px;
+            border: 1px solid #ff4d4d;
+            text-align: left;
+            white-space: nowrap;
+            /* Evita quebra de linha no conteúdo das células */
+        }
 
-th {
-    background-color: #ff4d4d;
-}
+        th {
+            background-color: #ff4d4d;
+        }
 
-/* Estilizando o modal */
-.modal {
-    display: none; 
-    position: fixed; 
-    z-index: 1; 
-    left: 0;
-    top: 0;
-    width: 100%; 
-    height: 100%; 
-    overflow: auto; 
-    background-color: rgba(0, 0, 0, 0.8); 
-}
 
-.modal-content {
-    background-color: #333;
-    margin: 15% auto; 
-    padding: 20px;
-    border: 1px solid #ff4d4d;
-    width: 50%; /* Diminuir o tamanho do modal */
-    color: #fff;
-}
+        /* Estilizando o modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
 
-.close {
-    color: #ff4d4d;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
+        .modal-content {
+            background-color: #333;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #ff4d4d;
+            width: 50%;
+            /* Diminuir o tamanho do modal */
+            color: #fff;
+        }
 
-.close:hover,
-.close:focus {
-    color: #fff;
-    text-decoration: none;
-    cursor: pointer;
-}
+        .close {
+            color: #ff4d4d;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
 
-/* Responsividade para telas menores (tablets e celulares) */
-@media (max-width: 768px) {
-    .container {
-        flex-direction: column; /* Empilha as seções verticalmente */
-        align-items: center;
-    }
+        .close:hover,
+        .close:focus {
+            color: #fff;
+            text-decoration: none;
+            cursor: pointer;
+        }
 
-    .cadastro, .visualizacao {
-        width: 80%; /* Ajuste a largura para dispositivos móveis */
-        height: auto; /* Permite altura dinâmica */
-    }
+        /* Responsividade para telas menores (tablets e celulares) */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                /* Empilha as seções verticalmente */
+                align-items: center;
+            }
 
-    .modal-content {
-        width: 90%; /* Deixa o modal mais acessível em dispositivos móveis */
-    }
-}
+            .cadastro,
+            .visualizacao {
+                width: 80%;
+                /* Ajuste a largura para dispositivos móveis */
+                height: auto;
+                /* Permite altura dinâmica */
+            }
 
-@media (max-width: 480px) {
-    .cadastro, .visualizacao {
-        width: 90%; /* Reduz ainda mais a largura em telas muito pequenas */
-    }
+            .modal-content {
+                width: 90%;
+                /* Deixa o modal mais acessível em dispositivos móveis */
+            }
+        }
 
-    input[type="text"], input[type="date"], input[type="password"] {
-        width: 100%; /* Ajusta a largura dos inputs para ocupar a tela toda */
-    }
+        @media (max-width: 480px) {
 
-    button {
-        width: 100%; /* Ajusta a largura dos botões para dispositivos móveis */
-    }
-}
+            .cadastro,
+            .visualizacao {
+                width: 90%;
+                /* Reduz ainda mais a largura em telas muito pequenas */
+            }
 
+            input[type="text"],
+            input[type="date"],
+            input[type="password"] {
+                width: 100%;
+                /* Ajusta a largura dos inputs para ocupar a tela toda */
+            }
+
+            button {
+                width: 100%;
+                /* Ajusta a largura dos botões para dispositivos móveis */
+            }
+        }
     </style>
+
 </head>
 
 <body>
@@ -221,18 +247,18 @@ th {
                 servico: servico,
                 telefone: telefone
             })
-            .then(function() {
-                alert('Cadastrado com sucesso');
-                exibirHoje(); // Atualiza a lista após cadastrar
-            })
-            .catch(function(error) {
-                console.error('Erro ao cadastrar:', error);
-            });
+                .then(function () {
+                    alert('Cadastrado com sucesso');
+                    exibirHoje(); // Atualiza a lista após cadastrar
+                })
+                .catch(function (error) {
+                    console.error('Erro ao cadastrar:', error);
+                });
         }
 
         function exibirHoje() {
             axios.get('/listarHoje')
-                .then(function(response) {
+                .then(function (response) {
                     const dados = response.data;
                     const tabelaCorpo = document.getElementById('tabelaCorpo');
                     tabelaCorpo.innerHTML = ''; // Limpa o conteúdo anterior
@@ -247,14 +273,14 @@ th {
                         tabelaCorpo.innerHTML += linha;
                     });
                 })
-                .catch(function(error) {
+                .catch(function (error) {
                     console.error('Erro ao obter dados:', error);
                 });
         }
 
         function exibirSemana() {
             axios.get('/listarSemana')
-                .then(function(response) {
+                .then(function (response) {
                     const dados = response.data;
                     const tabelaCorpo = document.getElementById('tabelaCorpo2');
                     tabelaCorpo.innerHTML = ''; // Limpa o conteúdo anterior
@@ -269,7 +295,7 @@ th {
                         tabelaCorpo.innerHTML += linha;
                     });
                 })
-                .catch(function(error) {
+                .catch(function (error) {
                     console.error('Erro ao obter dados:', error);
                 });
         }
@@ -292,24 +318,24 @@ th {
         var span = document.getElementsByClassName("close")[0];
 
         // Quando o usuário clicar no botão, abre o modal
-        btn.onclick = function() {
+        btn.onclick = function () {
             modal.style.display = "block";
         }
 
         // Quando o usuário clicar no <span> (x), fecha o modal
-        span.onclick = function() {
+        span.onclick = function () {
             modal.style.display = "none";
         }
 
         // Quando o usuário clicar em qualquer lugar fora do modal, fecha o modal
-        window.onclick = function(event) {
+        window.onclick = function (event) {
             if (event.target == modal) {
                 modal.style.display = "none";
             }
         }
 
         // Função de login
-        document.getElementById('loginForm').addEventListener('submit', function(event) {
+        document.getElementById('loginForm').addEventListener('submit', function (event) {
             event.preventDefault(); // Evita o envio do formulário
 
             var username = document.getElementById('username').value;
@@ -322,7 +348,7 @@ th {
                 exibirSemana();
                 var button = document.getElementById('botaoCadastrar');
                 button.disabled = false;
-                
+
             } else {
                 alert('Credenciais inválidas');
             }

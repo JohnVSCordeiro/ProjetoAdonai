@@ -107,46 +107,54 @@
     <!-- Botão para abrir o modal -->
     <div class="container d-flex justify-content-center align-items-center vh-100">
         <button id="openModalBtn" class="btn btn-danger">Login</button>
-        <div class="cadastro">
-            <input type="text" id="nome" class="form-control" placeholder="Nome">
-            <input type="date" id="data" class="form-control">
-            <input type="text" id="telefone" class="form-control" placeholder="telefone">
-            <input type="text" id="servico" class="form-control" placeholder="Serviço">
-            <button id="botaoCadastrar" class="btn btn-danger mt-2" onclick="cadastrar()" disabled>Cadastrar</button>
-        </div>
-        <div class="visualizacao" id="areaDeVisualizacao">
-            <h1>Lista de hoje</h1>
-            <div>
-                <table class="table table-dark table-striped">
-                    <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>Data</th>
-                            <th>Serviço</th>
-                            <th>Telefone</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tabelaCorpo">
-                        <!-- Conteúdo será populado pela função exibirHoje -->
-                    </tbody>
-                </table>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-12">
+                <div class="cadastro">
+                    <input type="text" id="nome" class="form-control" placeholder="Nome">
+                    <input type="date" id="data" class="form-control">
+                    <input type="text" id="telefone" class="form-control" placeholder="telefone">
+                    <input type="text" id="servico" class="form-control" placeholder="Serviço">
+                    <button id="botaoCadastrar" class="btn btn-danger mt-2" onclick="cadastrar()" disabled>Cadastrar</button>
+                </div>
             </div>
+            <div class="col-md-6 col-12">
+                <div class="visualizacao" id="areaDeVisualizacao">
+                    <h1>Lista de hoje</h1>
+                    <div>
+                        <table class="table table-dark table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Data</th>
+                                    <th>Serviço</th>
+                                    <th>Telefone</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabelaCorpo">
+                                <!-- Conteúdo será populado pela função exibirHoje -->
+                            </tbody>
+                        </table>
+                    </div>
 
-            <h1>Lista dos próximos 7 dias</h1>
-            <div>
-                <table class="table table-dark table-striped">
-                    <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>Data</th>
-                            <th>Serviço</th>
-                            <th>Telefone</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tabelaCorpo2">
-                        <!-- Conteúdo será populado pela função exibirSemana -->
-                    </tbody>
-                </table>
+                    <h1>Lista dos próximos 7 dias</h1>
+                    <div>
+                        <table class="table table-dark table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Data</th>
+                                    <th>Serviço</th>
+                                    <th>Telefone</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabelaCorpo2">
+                                <!-- Conteúdo será populado pela função exibirSemana -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

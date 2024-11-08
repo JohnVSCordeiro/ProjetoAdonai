@@ -9,7 +9,7 @@ app.use(express.static('public'));
 
 
 
-app.get('/home', (req, res) => {
+app.get('/', (req, res) => {
     res.sendFile('public/index.html', { root: __dirname });
 });
 
